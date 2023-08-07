@@ -1,0 +1,17 @@
+<%-include('header')%>
+<main id="main" class="main">
+    <%if(messages.success){%>
+
+        <div class="alert alert-success my-2">
+          <%=messages.success%>
+        </div>
+        <%}%> 
+    <%for(var i of datas){%>
+        <div class="position-relative div">
+            <a href="<%=i.img%>">
+                <img src="<%=i.img%>" alt="" height="400px">
+                <a href="/admin/delete/<%=i.id%>" class="deletes"><img src="/img/3405244.png" alt="" height="30px"></a>
+            </a>
+        </div>
+        <%}%>
+  </main><!-- End #main -->

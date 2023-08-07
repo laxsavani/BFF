@@ -1,0 +1,16 @@
+<%-include('header')%>
+
+<main id="main" class="main">
+    <%if(messages.success){%>
+
+      <div class="alert alert-success my-2">
+        <%=messages.success%>
+      </div>
+      <%}%> 
+
+      <form action="/admin/formElenents" enctype="multipart/form-data" method="post">
+        <input type="file" name="img"><br><br>
+        <input type="submit">
+      </form>
+
+  </main><!-- End #main -->
