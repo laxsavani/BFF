@@ -31,18 +31,11 @@ app.use('/admin', require('./routes/adminrouter'));
 require('./config/dataBase')
 
 app.get('/', (req, res) => {
-    res.redirect('/student/login');
+    res.redirect('/admin/login');
 })
 app.get('/admin/', (req, res) => {
     res.redirect('/admin/login');
 })
-app.get('/manager/', (req, res) => {
-    res.redirect('/manager/login');
-})
-app.get('/student/', (req, res) => {
-    res.redirect('/student/login');
-})
-
 app.use((req, res) => {
     res.render('404');
 });
