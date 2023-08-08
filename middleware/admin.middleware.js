@@ -21,7 +21,7 @@ const admin_token=async(req,res,next)=>{
          }
          else
          {
-            const datas = await admins.findOne({_id:userdata.userId})
+            const datas = await admins.findOne({email: userdata.email})
             if(datas==null)
             {
                 res.redirect('/admin/register')

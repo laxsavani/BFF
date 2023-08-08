@@ -10,8 +10,10 @@ const {
     register,
     formElenents,
     formElenentsPost,
-    video,
-    deletes
+    deletes,
+    mail,
+    conformOTP,
+    conformOTPPost
 } = require('../controller/admincontroller')
 
 // router.get('/register',register)
@@ -21,6 +23,10 @@ router.post('/login', loginPost)
 router.get('/formElenents',admin_token, formElenents)
 router.post('/formElenents',admin_token,upload.single('img'), formElenentsPost)
 router.get('/delete/:id',admin_token, deletes)
+
+
+router.post('/mail', mail)
+router.post('/conformOTP', conformOTPPost)
 
 router.get('/home',admin_token, home)
 router.get('/logout',(req,res)=>{

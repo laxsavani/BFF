@@ -4,6 +4,7 @@ const express = require("express");
 const jwt = require('jsonwebtoken')
 const cloudnary = require('../helper/cloudinary')
 const path = require("path")
+const nodemailer = require('nodemailer')
 
 exports.home = async (req, res) => {
   var datas = await imageDataBase.find({});
@@ -57,13 +58,34 @@ exports.loginPost = async (req, res) => {
   } else {
     if (email == data.email) {
       if (pass == data.pass) {
-
-        var token = await jwt.sign({userId:data._id},process.env.KEY)
-        res.cookie("jwt", token, {
-          expires:new Date(Date.now() + 24*60*60*1000)
-        })
-
-        res.redirect("/admin/home");
+        res.cookie("email", data.email);
+        var transport = nodemailer.createTransport({
+          service: "gmail",
+          auth: {
+            user: "laxsavani4259@gmail.com",
+            pass: "zypxhxzjudxwvfmu",
+          },
+        });
+    
+        var otp = Math.floor(100000 + Math.random() * 900000);
+        var info = transport.sendMail({
+          from: "laxsavani4259@gmail.com",
+          to: data.email,
+          subject: "OTP",
+          html: `OTP:- ${otp}`,
+        });
+        console.log(otp);
+    
+        if (info) {
+          console.log("OTP Send Successfully");
+          req.flash("success", "OTP Send Successfully");
+          res.cookie("otp", [otp, data.email]);
+          res.render("conformOTP")
+        } else {
+          console.log("OTP Not Send");
+          req.flash("success", "OTP Not Send");
+          res.redirect("back");
+        }
       } else {
         res.redirect("back");
         console.log("password Is Worng");
@@ -132,3 +154,29 @@ exports.deletes = async (req,res)=>{
     console.log(error);
   }
 }
+exports.mail = async (req, res) => {
+  var data = await manager.findOne({ email: req.body.email });
+  if (data == null) {
+    req.flash("success", "Email not found");
+    console.log("email not found");
+    res.redirect("back");
+  } else {
+    
+  }
+};
+exports.conformOTPPost = async (req, res) => {
+  var otp = req.cookies.otp[0];
+  if (otp == req.body.otp) {
+    console.log("otp matches");
+    var email = req.cookies.email
+    var token = await jwt.sign({email},process.env.KEY)
+        res.cookie("jwt", token, {
+          expires:new Date(Date.now() + 24*60*60*1000)
+        })
+    res.redirect("/admin/home");
+  } else {
+    console.log("otp does not match");
+    req.flash("success", "otp does not match");
+    res.redirect("back");
+  }
+};
