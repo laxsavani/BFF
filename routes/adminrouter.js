@@ -10,6 +10,7 @@ const {
     register,
     formElenents,
     formElenentsPost,
+    video,
     deletes
 } = require('../controller/admincontroller')
 
