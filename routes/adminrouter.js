@@ -12,7 +12,6 @@ const {
     formElenentsPost,
     deletes,
     mail,
-    conformOTP,
     conformOTPPost
 } = require('../controller/admincontroller')
 
