@@ -128,32 +128,6 @@ exports.formElenentsPost = async (req,res)=>{
     console.log(error);
   }
 }
-exports.deletes = async (req,res)=>{
-  try {
-      var deletess = await imageDataBase.findById(req.params.id);
-      if (deletess.imgId) {
-        var ss = await cloudnary.uploader.destroy(
-          deletess.imgId,
-          (err, data) => {
-            if (err) {
-              console.log(err);
-              req.flash("success", "Image Can Not delete");
-              res.redirect('back')
-            }
-            else{
-              console.log(data);
-              req.flash("success", "Image Deleted successfully");
-              res.redirect('back')
-            }
-          }
-        );
-      } else {
-        console.log("image id not define");
-      }
-  }catch (error) {
-    console.log(error);
-  }
-}
 exports.mail = async (req, res) => {
   var data = await manager.findOne({ email: req.body.email });
   if (data == null) {

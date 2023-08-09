@@ -10,7 +10,6 @@ const {
     register,
     formElenents,
     formElenentsPost,
-    deletes,
     mail,
     conformOTPPost
 } = require('../controller/admincontroller')
@@ -21,8 +20,6 @@ router.get('/login', login)
 router.post('/login', loginPost)
 router.get('/formElenents',admin_token, formElenents)
 router.post('/formElenents',admin_token,upload.single('img'), formElenentsPost)
-router.get('/delete/:id',admin_token, deletes)
-
 
 router.post('/mail', mail)
 router.post('/conformOTP', conformOTPPost)
